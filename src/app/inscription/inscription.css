@@ -1,0 +1,135 @@
+/* ==========================================
+   1. COULEURS (les "variables")
+   ========================================== */
+form {
+  --bleu: #3b82f6;
+  --bleu-fonce: #2563eb;
+  --rouge: #ef4444;
+  --rouge-clair: #fef2f2;
+  --vert: #22c55e;
+  --vert-clair: #f0fdf4;
+  --gris: #cbd5e1;
+  --texte: #1e293b;
+}
+
+/* ==========================================
+   2. LA CARTE (le formulaire)
+   ========================================== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 440px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: var(--texte);
+}
+
+h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  text-align: center;
+}
+
+/* ==========================================
+   3. LES LABELS
+   ========================================== */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ==========================================
+   4. LES CHAMPS (texte, email, nombre)
+   ========================================== */
+input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid var(--gris);
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Quand on écrit dedans */
+input:not([type="checkbox"]):focus {
+  outline: none;
+  border-color: var(--bleu);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* ==========================================
+   5. LES ÉTATS ANGULAR (rouge / vert)
+   ========================================== */
+input:not([type="checkbox"]).ng-invalid.ng-touched {
+  border-color: var(--rouge);
+  background: var(--rouge-clair);
+}
+
+input:not([type="checkbox"]).ng-valid.ng-touched {
+  border-color: var(--vert);
+  background: var(--vert-clair);
+}
+
+/* ==========================================
+   6. LA CASE À COCHER
+   ========================================== */
+.case {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.case input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--bleu);
+}
+
+.case label {
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* ==========================================
+   7. LES MESSAGES D'ERREUR
+   ========================================== */
+.erreur {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--rouge);
+}
+
+/* ==========================================
+   8. LE BOUTON
+   ========================================== */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--bleu);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--bleu-fonce);
+}
+
+button:disabled {
+  background: var(--gris);
+  cursor: not-allowed;
+}

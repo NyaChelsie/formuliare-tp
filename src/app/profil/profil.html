@@ -1,0 +1,90 @@
+<form (ngSubmit)="onSubmit(profilForm)" #profilForm="ngForm">
+  <h2>Mon profil</h2>
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section"
+       ngModelGroup="informationsPersonnelles"
+       #infos="ngModelGroup">
+    <h3>Informations personnelles</h3>
+
+    <div>
+      <label for="nom">Nom</label>
+      <input id="nom" type="text" name="nom" required
+             [(ngModel)]="profil.informationsPersonnelles.nom" #nom="ngModel" />
+      @if (nom.invalid && nom.touched) {
+        <p class="erreur">Le nom est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="prenom">Prénom</label>
+      <input id="prenom" type="text" name="prenom" required
+             [(ngModel)]="profil.informationsPersonnelles.prenom" #prenom="ngModel" />
+      @if (prenom.invalid && prenom.touched) {
+        <p class="erreur">Le prénom est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="dateNaissance">Date de naissance</label>
+      <input id="dateNaissance" type="date" name="dateNaissance" required
+             [(ngModel)]="profil.informationsPersonnelles.dateNaissance" #dateNaissance="ngModel" />
+      @if (dateNaissance.invalid && dateNaissance.touched) {
+        <p class="erreur">La date de naissance est obligatoire</p>
+      }
+    </div>
+
+    @if (infos.valid) {
+      <p class="statut ok">✅ Section valide</p>
+    } @else {
+      <p class="statut ko">❌ Section incomplète</p>
+    }
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section"
+       ngModelGroup="adresse"
+       #adr="ngModelGroup">
+    <h3>Adresse</h3>
+
+    <div>
+      <label for="rue">Rue</label>
+      <input id="rue" type="text" name="rue" required
+             [(ngModel)]="profil.adresse.rue" #rue="ngModel" />
+      @if (rue.invalid && rue.touched) {
+        <p class="erreur">La rue est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="ville">Ville</label>
+      <input id="ville" type="text" name="ville" required
+             [(ngModel)]="profil.adresse.ville" #ville="ngModel" />
+      @if (ville.invalid && ville.touched) {
+        <p class="erreur">La ville est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="codePostal">Code postal</label>
+      <input id="codePostal" type="text" name="codePostal" required
+             pattern="[0-9]{5}" maxlength="5"
+             [(ngModel)]="profil.adresse.codePostal" #codePostal="ngModel" />
+      @if (codePostal.invalid && codePostal.touched) {
+        @if (codePostal.errors?.['required']) {
+          <p class="erreur">Le code postal est obligatoire</p>
+        } @else if (codePostal.errors?.['pattern']) {
+          <p class="erreur">Le code postal doit contenir exactement 5 chiffres</p>
+        }
+      }
+    </div>
+
+    @if (adr.valid) {
+      <p class="statut ok">✅ Section valide</p>
+    } @else {
+      <p class="statut ko">❌ Section incomplète</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="profilForm.invalid">Enregistrer</button>
+</form>

@@ -1,0 +1,147 @@
+<form (ngSubmit)="onSubmit(resaForm)" #resaForm="ngForm">
+  <h2>Réserver une chambre</h2>
+
+  <!-- ========== GROUPE 1 : CLIENT ========== -->
+  <div class="section" ngModelGroup="client" #cli="ngModelGroup">
+    <h3>Client</h3>
+
+    <div>
+      <label for="nom">Nom complet</label>
+      <input id="nom" type="text" name="nom" required
+             [(ngModel)]="reservation.client.nom" #nom="ngModel" />
+      @if (nom.invalid && nom.touched) {
+        <p class="erreur">Le nom est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" required email
+             [(ngModel)]="reservation.client.email" #email="ngModel" />
+      @if (email.invalid && email.touched) {
+        @if (email.errors?.['required']) {
+          <p class="erreur">L'email est obligatoire</p>
+        } @else if (email.errors?.['email']) {
+          <p class="erreur">Format d'email invalide</p>
+        }
+      }
+    </div>
+
+    <div>
+      <label for="telephone">Téléphone</label>
+      <input id="telephone" type="text" name="telephone" required
+             pattern="[0-9]{8,15}"
+             [(ngModel)]="reservation.client.telephone" #telephone="ngModel" />
+      @if (telephone.invalid && telephone.touched) {
+        @if (telephone.errors?.['required']) {
+          <p class="erreur">Le téléphone est obligatoire</p>
+        } @else if (telephone.errors?.['pattern']) {
+          <p class="erreur">Entre 8 et 15 chiffres, sans espace</p>
+        }
+      }
+    </div>
+
+    @if (cli.valid) {
+      <p class="statut ok">✅ Section valide</p>
+    } @else {
+      <p class="statut ko">❌ Section incomplète</p>
+    }
+  </div>
+
+  <!-- ========== GROUPE 2 : SÉJOUR ========== -->
+  <div class="section" ngModelGroup="sejour" #sej="ngModelGroup">
+    <h3>Séjour</h3>
+
+    <div>
+      <label for="dateArrivee">Date d'arrivée</label>
+      <input id="dateArrivee" type="date" name="dateArrivee" required
+             [(ngModel)]="reservation.sejour.dateArrivee" #dateArrivee="ngModel" />
+      @if (dateArrivee.invalid && dateArrivee.touched) {
+        <p class="erreur">La date d'arrivée est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="dateDepart">Date de départ</label>
+      <input id="dateDepart" type="date" name="dateDepart" required
+             [(ngModel)]="reservation.sejour.dateDepart" #dateDepart="ngModel" />
+      @if (dateDepart.invalid && dateDepart.touched) {
+        <p class="erreur">La date de départ est obligatoire</p>
+      }
+    </div>
+
+    <div>
+      <label for="nombrePersonnes">Nombre de personnes</label>
+      <input id="nombrePersonnes" type="number" name="nombrePersonnes" required
+             min="1" max="10"
+             [(ngModel)]="reservation.sejour.nombrePersonnes" #nombrePersonnes="ngModel" />
+      @if (nombrePersonnes.invalid && nombrePersonnes.touched) {
+        @if (nombrePersonnes.errors?.['required']) {
+          <p class="erreur">Le nombre de personnes est obligatoire</p>
+        } @else if (nombrePersonnes.errors?.['min'] || nombrePersonnes.errors?.['max']) {
+          <p class="erreur">Choisis entre 1 et 10 personnes</p>
+        }
+      }
+    </div>
+
+    <div>
+      <label for="typeChambre">Type de chambre</label>
+      <select id="typeChambre" name="typeChambre" required
+              [(ngModel)]="reservation.sejour.typeChambre" #typeChambre="ngModel">
+        <option value="" disabled>-- Choisir --</option>
+        <option value="simple">Simple</option>
+        <option value="double">Double</option>
+        <option value="suite">Suite</option>
+      </select>
+      @if (typeChambre.invalid && typeChambre.touched) {
+        <p class="erreur">Choisis un type de chambre</p>
+      }
+    </div>
+
+    @if (sej.valid) {
+      <p class="statut ok">✅ Section valide</p>
+    } @else {
+      <p class="statut ko">❌ Section incomplète</p>
+    }
+  </div>
+
+  <!-- ========== LA CASE QUI DÉCIDE ========== -->
+  <div class="case">
+    <input id="transfertDemande" type="checkbox" name="transfertDemande"
+           [(ngModel)]="reservation.transfertDemande" />
+    <label for="transfertDemande">Je veux un transfert depuis l'aéroport</label>
+  </div>
+
+  <!-- ========== GROUPE 3 : TRANSFERT (CONDITIONNEL) ========== -->
+  @if (reservation.transfertDemande) {
+    <div class="section" ngModelGroup="transfert" #trf="ngModelGroup">
+      <h3>Transfert aéroport</h3>
+
+      <div>
+        <label for="numeroVol">Numéro de vol</label>
+        <input id="numeroVol" type="text" name="numeroVol" required
+               [(ngModel)]="reservation.transfert.numeroVol" #numeroVol="ngModel" />
+        @if (numeroVol.invalid && numeroVol.touched) {
+          <p class="erreur">Le numéro de vol est obligatoire</p>
+        }
+      </div>
+
+      <div>
+        <label for="heureArrivee">Heure d'arrivée</label>
+        <input id="heureArrivee" type="time" name="heureArrivee" required
+               [(ngModel)]="reservation.transfert.heureArrivee" #heureArrivee="ngModel" />
+        @if (heureArrivee.invalid && heureArrivee.touched) {
+          <p class="erreur">L'heure d'arrivée est obligatoire</p>
+        }
+      </div>
+
+      @if (trf.valid) {
+        <p class="statut ok">✅ Section valide</p>
+      } @else {
+        <p class="statut ko">❌ Section incomplète</p>
+      }
+    </div>
+  }
+
+  <button type="submit" [disabled]="resaForm.invalid">Réserver</button>
+</form>

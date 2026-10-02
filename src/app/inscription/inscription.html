@@ -1,0 +1,53 @@
+<form (ngSubmit)="onSubmit(inscriptionForm)" #inscriptionForm="ngForm">
+  <h2>Inscription à l'évènement</h2>
+
+  <div>
+    <label for="nomComplet">Nom complet</label>
+    <input id="nomComplet" type="text" name="nomComplet" required
+           [(ngModel)]="inscription.nomComplet" #nomComplet="ngModel" />
+    @if (nomComplet.invalid && nomComplet.touched) {
+      <p class="erreur">Ton nom complet est obligatoire</p>
+    }
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" required email
+           [(ngModel)]="inscription.email" #email="ngModel" />
+    @if (email.invalid && email.touched) {
+      @if (email.errors?.['required']) {
+        <p class="erreur">Ton email est obligatoire</p>
+      } @else if (email.errors?.['email']) {
+        <p class="erreur">Adresse email invalide</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="places">Nombre de places (1 à 5)</label>
+    <input id="places" type="number" name="places" required min="1" max="5"
+           [(ngModel)]="inscription.places" #places="ngModel" />
+    @if (places.invalid && places.touched) {
+      @if (places.errors?.['required']) {
+        <p class="erreur">Le nombre de places est obligatoire</p>
+      } @else if (places.errors?.['min']) {
+        <p class="erreur">Minimum 1 place</p>
+      } @else if (places.errors?.['max']) {
+        <p class="erreur">Maximum 5 places</p>
+      }
+    }
+  </div>
+
+  <div>
+    <div class="case">
+      <input id="conditions" type="checkbox" name="conditions" required
+             [(ngModel)]="inscription.conditions" #conditions="ngModel" />
+      <label for="conditions">J'accepte les conditions</label>
+    </div>
+    @if (conditions.invalid && conditions.touched) {
+      <p class="erreur">Tu dois accepter les conditions</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+</form>

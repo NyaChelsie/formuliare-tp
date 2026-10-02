@@ -1,0 +1,33 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <h2>Nous contacter</h2>
+
+  <div>
+    <label for="nom">Nom</label>
+    <input id="nom" type="text" formControlName="nom" />
+    @if (contactForm.get('nom')?.invalid && contactForm.get('nom')?.touched) {
+      <p class="erreur">Ton nom est obligatoire</p>
+    }
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+    @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
+      @if (contactForm.get('email')?.errors?.['required']) {
+        <p class="erreur">Ton email est obligatoire</p>
+      } @else if (contactForm.get('email')?.errors?.['email']) {
+        <p class="erreur">Format d'email invalide</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="message">Message</label>
+    <textarea id="message" rows="5" formControlName="message"></textarea>
+    @if (contactForm.get('message')?.invalid && contactForm.get('message')?.touched) {
+      <p class="erreur">10 caractères minimum</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="contactForm.invalid">Envoyer</button>
+</form>

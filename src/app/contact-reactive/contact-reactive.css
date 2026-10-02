@@ -1,0 +1,123 @@
+/* ==========================================
+   1. COULEURS (les "variables")
+   ========================================== */
+form {
+  --bleu: #2563eb;
+  --bleu-fonce: #1d4ed8;
+  --rouge: #dc2626;
+  --vert: #16a34a;
+  --bordure: #e2e8f0;
+  --gris: #cbd5e1;
+  --texte: #1e293b;
+  --texte-doux: #64748b;
+}
+
+/* ==========================================
+   2. LA CARTE (le formulaire)
+   ========================================== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid var(--bordure);
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  color: var(--texte);
+}
+
+h2 {
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--bordure);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   3. LES LABELS
+   ========================================== */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+/* ==========================================
+   4. LES CHAMPS (texte, email, message)
+   ========================================== */
+input,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gris);
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--texte);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--bleu);
+}
+
+/* ==========================================
+   5. LES ÉTATS ANGULAR (rouge / vert)
+   ========================================== */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: var(--rouge);
+}
+
+input.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
+  border-color: var(--vert);
+}
+
+/* ==========================================
+   6. LES MESSAGES D'ERREUR
+   ========================================== */
+.erreur {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--rouge);
+}
+
+/* ==========================================
+   7. LE BOUTON
+   ========================================== */
+button {
+  padding: 11px;
+  border: none;
+  border-radius: 6px;
+  background: var(--bleu);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--bleu-fonce);
+}
+
+button:disabled {
+  background: var(--gris);
+  cursor: not-allowed;
+}
